@@ -20,7 +20,7 @@ class Model_Users extends Orm\Model
         'key_from' => 'id',
         'model_to' => 'Model_listas',
         'key_to' => 'id_usuario',
-        'cascade_save' => true,
+        'cascade_save' => false,
         'cascade_delete' => false,
     )
 );

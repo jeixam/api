@@ -3,7 +3,6 @@ namespace Fuel\Migrations;
 
 class Usuarios
 {
-
     function up()
     {
         \DBUtil::create_table('usuarios', array

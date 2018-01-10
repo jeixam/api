@@ -6,7 +6,9 @@ return array(
     array(
       'default' => 
       array(
-        0 => '003_cancion',
+        0 => '001_Usuarios',
+        1 => '002_Listas',
+        2 => '003_Cancion',
       ),
     ),
     'module' => 

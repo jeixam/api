@@ -1,6 +1,7 @@
 <?php 
 use \Firebase\JWT\JWT;
-class Controller_Users extends Controller_Rest
+
+class Controller_Users extends Controller_Autentificacion
 {
     public function post_create()
     {
@@ -9,7 +10,7 @@ class Controller_Users extends Controller_Rest
             {
                 $json = $this->response(array(
                     'code' => 400,
-                    'message' => 'parametro incorrecto, se necesita que el parametro se llame name'
+                    'message' => ' parametro incorrecto, se necesita que el parametro se llame name'
                 ));
 
                 return $json;
@@ -43,34 +44,73 @@ class Controller_Users extends Controller_Rest
 
     public function get_users()
     {
-    	$users = Model_Users::find('all');
+    	if($this->LoginAuthentification())
+        {
+        	$users = Model_Users::find('all');
 
-    	return $this->response(Arr::reindex($users));
+        	foreach ($users as $key => $user)
+            {
+                $users[] = $user->nombre;
+            }
+            $response = $this->response(array(
+                'code' => 200,
+                'message' => 'Usuarios mostrados',
+                'data' => $users
+            ));
+            return $response;
+        }
+        else
+        {
+            $response = $this->response(array
+            	(
+                	'code' => 400,
+                	'message' => ' El usuario debe loguearse primero ',
+                	'data' => ''
+            	));
+            return $response;
+        }
+    	
     }
-
+//borra el usuario del token
     public function post_delete()
     {
-        $user = Model_Users::find($_POST['id']);
-        $userName = $user->nombre;
-        $user->delete();
+    	if($this->LoginAuthentification())
+        {
+        	$user = Model_Users::find($this->userID());
+        	$userName = $user->nombre;
+        	$user->delete();
 
-        $json = $this->response(array(
-            'code' => 200,
-            'message' => 'usuario borrado',
-            'name' => $userName
-        ));
-
-        return $json;
+        	$json = $this->response(array(
+            	'code' => 200,
+            	'message' => ' usuario borrado ',
+            	'name' => $userName
+        	));
+        	return $json;
+        }
+        else
+        {
+            $response = $this->response(array
+            	(
+                	'code' => 400,
+                	'message' => ' El usuario debe loguearse primero ',
+                	'data' => ''
+            	));
+            return $response;
+        }  
     }
 
-    public function get_login()
+    public function Post_login()
     {
-        $input=$_GET;
+    	$input= $_POST;
+        $input['nombre'];
         $entry = Model_Users::find('all', 
-            array('where'=>array(
-            array("nombre"=>$input["name"]),
-            array("password"=>$input["password"]))
+            array('where'=>array
+            	(
+            		array('nombre', $input['nombre']),
+            		array('password', $input['password']),
+        		),
             ));
+        //usuario buscado
         //si esto es nulo
         if($entry==null)
         {
@@ -83,40 +123,54 @@ class Controller_Users extends Controller_Rest
         }
         else
         {
-            $nombreArray=$input["name"];
-            $passArray=$input["password"];
-            $key = "o034d2m90g4tr555qQ554888Qghgh76qhght76UI76";
+            $nombreArray=$input['nombre'];
+            $passArray=$input['password'];
+            $key = 'klj34234kl2j34k259923j';
             $token = array(
-                "nombre" => $passArray,
-                "pass" => $passArray,
+                "nombre" => $nombreArray,
+                "password" => $passArray,
             );
             $jwt = JWT::encode($token, $key);
-            //$decoded = JWT::decode($jwt, $key, array('HS256'));
-
             $json = $this->response(array(
-                    'code' => 200,
+                    'code' => ' 200 ',
                     'data'=>$jwt,
-                    'message' => 'usuario encontrado'
+                    'message' => ' usuario encontrado, logeado'
                 ));
 
                 return $json;
         }
     }
-    //token
 
-    //public function autentication ()
-        //{
+public function post_edit()
+    {
+    	//llamar a la funcion
+        if($this->LoginAuthentification())
+        {
+        	$infoID=$this->userID();
+            $input = $_POST;
+            $datauser = DB::update('usuarios');
+            $datauser->where('id', '=', $infoID);
+            $datauser->value('password', $input['password']);
+            $datauser->execute();
 
-            //$decoded = JWT::decode($jwt, $key, array('HS256'));
-            
-            //if($decoded->nombre==Model_Users::find('all')&&$decoded->pass==Model_Users::find('password'))
-                //{
-                   
-                    //return true
-                //}
-            //else
-            //{
-                //return false
-            //}
-        //}
+            $response = $this->response(array(
+                'code' => 200,
+                'message' => ' contraseña cambiada a ',
+                'data' => $input['password']
+            ));
+            return $response;
+        }
+        else
+        {
+            $response = $this->response(array(
+                'code' => 400,
+                'message' => ' El usuario debe loguearse primero ',
+                'data' => var_dump($this->LoginAuthentification())
+            ));
+            return $response;
+        }
+    }
+
 }
+
+//$datosUsers =JWT::decode($jwt, $key, array('HS256'));;
