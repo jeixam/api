@@ -1,21 +1,22 @@
 <?php
 namespace Fuel\Migrations;
 
-class Listas
+class Noticias
 {
 
     function up()
     {
-        \DBUtil::create_table('listas', array
+        \DBUtil::create_table('noticias', array
             (
                 'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
                 'titulo' => array('type' => 'varchar', 'constraint' => 100),
                 'id_usuario' => array('type' => 'int', 'constraint' => 11),
+                'descripcion' => array('type' => 'varchar', 'constraint' => 100),
             ), array('id'),true, 'InnoDB', 'utf8_general_ci',
         array
         (
         array(
-                'constraint' => 'claveAjenaDelaListasAUsuarios',
+                'constraint' => 'claveAjenaDelaNoticiasAUsuarios',
                 'key' => 'id_usuario',
                 'reference' => array
                 (
@@ -31,6 +32,6 @@ class Listas
     
     function down()
     {
-       \DBUtil::drop_table('listas');
+       \DBUtil::drop_table('noticias');
     }
 }
