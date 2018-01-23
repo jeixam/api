@@ -25,7 +25,7 @@ class Model_cancion extends Orm\Model
         );
     
     protected static $_many_many = array(
-    'cancion' => array
+    'listas' => array
     (
         'key_from' => 'id',
         'key_through_from' => 'id_listas', 

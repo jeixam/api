@@ -15,6 +15,4 @@ class Model_Tienen extends Orm\Model
             'data_type' => 'int'   
         )
         );
-
-    
 }
