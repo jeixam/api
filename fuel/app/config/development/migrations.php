@@ -6,9 +6,13 @@ return array(
     array(
       'default' => 
       array(
-        0 => '001_Usuarios',
-        1 => '002_Listas',
-        2 => '003_Cancion',
+        0 => '001_roles',
+        1 => '002_usuarios',
+        2 => '003_cancion',
+        3 => '004_listas',
+        4 => '005_tiene',
+        5 => '006_noticias',
+        6 => '007_privacidad',
       ),
     ),
     'module' => 

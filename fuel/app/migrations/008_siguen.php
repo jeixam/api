@@ -8,7 +8,7 @@ class Siguen
         \DBUtil::create_table('siguen', array(
             'id_usuario' => array('type' => 'int', 'constraint' => 11),
             'id_amigo' => array('type' => 'int', 'constraint' => 11)
-        ), array('id_lista', 'id_cancion'), true, 'InnoDB', 'utf8_general_ci',
+        ), array('id_usuario', 'id_amigo'), true, 'InnoDB', 'utf8_general_ci',
             array(
                 array(
                     'constraint' => 'foreignkeyHaveToLists',

@@ -34,7 +34,7 @@ class Usuarios
                 'on_delete' => 'CASCADE'
             )
         )
-        ););
+        );
     }
 
     function down()

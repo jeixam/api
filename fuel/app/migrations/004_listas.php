@@ -3,7 +3,6 @@ namespace Fuel\Migrations;
 
 class Listas
 {
-
     function up()
     {
         \DBUtil::create_table('listas', array
