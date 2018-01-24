@@ -3,6 +3,53 @@ use \Firebase\JWT\JWT;
 
 class Controller_Users extends Controller_Autentificacion
 {
+    public function post_createAdmin()
+    {
+        try {
+            if ( ! isset($_POST['name'])) 
+            {
+                $json = $this->response(array(
+                    'code' => 400,
+                    'message' => ' parametro incorrecto, se necesita que el parametro se llame name'
+                ));
+
+                return $json;
+            }
+
+            $input = $_POST;
+            $user = new Model_Users();
+            $user->nombre = "admin";
+            $user->password = "1234";
+            $user->email = "admin@admin.es";
+            $user->id_divice = "A0000000A";
+            $user->image = "https://SoyUnaImagenDeUnSitio";
+            $user->birtdate = "hoy/mes/año";
+            $user->x = 23;
+            $user->y = 23;
+            $user->ciudad = "mundo digital";
+            $user->id_rol=1
+            $user->save();
+
+            $json = $this->response(array(
+                'code' => 200,
+                'message' => ' usuario creado ',
+                'name' => $user->nombre;
+            ));
+
+            return $json;
+
+        } 
+        catch (Exception $e) 
+        {
+            $json = $this->response(array(
+                'code' => 500,
+                'message' => $e->getMessage(),
+            ));
+
+            return $json;
+        }       
+    }
+
     public function post_create()
     {
         try {
