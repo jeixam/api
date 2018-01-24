@@ -1,6 +1,5 @@
 <?php  
 namespace Fuel\Migrations;
-
 class Siguen
 {
     function up()
@@ -11,7 +10,7 @@ class Siguen
         ), array('id_usuario', 'id_amigo'), true, 'InnoDB', 'utf8_general_ci',
             array(
                 array(
-                    'constraint' => 'foreignkeyHaveToLists',
+                    'constraint' => 'claveAjenaDesiguenaUsuarios',
                     'key' => 'id_usuario',
                     'reference' => array(
                         'table' => 'usuarios',
@@ -21,7 +20,7 @@ class Siguen
                     'on_delete' => 'CASCADE'
                 ),
                 array(
-                    'constraint' => 'foreignkeyHaveToSongs',
+                    'constraint' => 'claveAjenaDesiguenaAmigos',
                     'key' => 'id_amigo',
                     'reference' => array(
                         'table' => 'usuarios',

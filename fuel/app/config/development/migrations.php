@@ -13,6 +13,7 @@ return array(
         4 => '005_tiene',
         5 => '006_noticias',
         6 => '007_privacidad',
+        7 => '008_siguen',
       ),
     ),
     'module' => 
