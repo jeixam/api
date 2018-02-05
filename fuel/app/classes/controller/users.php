@@ -5,7 +5,10 @@ class Controller_Users extends Controller_Autentificacion
 {
     public function post_createAdmin()
     {
-        try {
+        //si ya existe admin
+    if(!userExistAdmin())
+    {
+            try {
             if ( ! isset($_POST['name'])) 
             {
                 $json = $this->response(array(
@@ -16,7 +19,6 @@ class Controller_Users extends Controller_Autentificacion
                 return $json;
             }
 
-            $input = $_POST;
             $user = new Model_Users();
             $user->nombre = "admin";
             $user->password = "1234";
@@ -24,8 +26,8 @@ class Controller_Users extends Controller_Autentificacion
             $user->id_divice = "A0000000A";
             $user->image = "https://SoyUnaImagenDeUnSitio";
             $user->birtdate = "hoy/mes/año";
-            $user->x = 23;
-            $user->y = 23;
+            $user->x = 0;
+            $user->y = 0;
             $user->ciudad = "mundo digital";
             $user->id_rol=1
             $user->save();
@@ -47,8 +49,19 @@ class Controller_Users extends Controller_Autentificacion
             ));
 
             return $json;
-        }       
+        }
     }
+    else
+    {
+        $json = $this->response(array(
+                'code' => 400,
+                'message' => ' usuario admin ya creado ',
+                'name' => $user->nombre;
+            ));
+
+            return $json;
+    }       
+}
 
     public function post_create()
     {
@@ -65,13 +78,22 @@ class Controller_Users extends Controller_Autentificacion
 
             $input = $_POST;
             $user = new Model_Users();
-            $user->nombre = $input['name'];
+            $user->nombre = $input['nombre'];
             $user->password = $input['password'];
+            $user->email = $input['email'];
+            $user->id_divice = $input['id_divice'];
+            $user->image = $input['image'];
+            $user->birtdate = $input['birtdate'];
+            $user->x = $input['x'];
+            $user->y = $input['y'];
+            $user->ciudad = $input['ciudad'];
+            $user->descripcion = $input['descripcion'];
+            $user->id_rol=2
             $user->save();
-
+            //respuesta
             $json = $this->response(array(
                 'code' => 200,
-                'message' => 'usuario creado',
+                'message' => ' usuario creado ',
                 'name' => $input['name']
             ));
 
@@ -218,6 +240,37 @@ public function post_edit()
         }
     }
 
+/**
+     *  Funcion para obtener si el usuario admin existe
+     * @return bool
+     */
+
+protected function userExistAdmin ()
+    {
+      $user = Model_users::find('all', array
+      (
+        'where' => array
+        (
+          array('nombre'=>"admin",
+        )
+        ));
+        if(!empty($user))
+        {
+          foreach ($user as $key => $value)
+            {
+              $username = $user[$key]->nombre;
+            }
+            if($username=="admin")
+            {
+                return true;
+            }
+            else
+            {
+                return false
+            }         
+        }                  
+    }
 }
 
-//$datosUsers =JWT::decode($jwt, $key, array('HS256'));;
+}
+

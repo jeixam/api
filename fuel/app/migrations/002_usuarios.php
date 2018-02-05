@@ -12,7 +12,7 @@ class Usuarios
             'password' => array('type' => 'varchar', 'constraint' => 100),
             'email' => array('type' => 'varchar', 'constraint' => 100),
             'id_divice' => array('type' => 'varchar', 'constraint' => 100),
-            'image' => array('type' => 'varchar', 'constraint' => 100),
+            'image' => array('type' => 'varchar', 'constraint' => 500),
             'descripcion' => array('type' => 'varchar', 'constraint' => 100, null=>true),
             'birtdate' => array('type' => 'varchar', 'constraint' => 100),
             'x' => array('type' => 'int', 'constraint' => 11),

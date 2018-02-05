@@ -1,30 +1,24 @@
 <?php 
 use \Firebase\JWT\JWT;
 
-class Controller_Users extends Controller_Autentificacion
+class Controller_Roles extends Controller_Autentificacion
 {
     public function post_create()
     {
         try {
-            if ( ! isset($_POST['type'])) 
-                {
-                    $json = $this->response(array(
-                    'code' => 400,
-                    'message' => ' parametro incorrecto, se necesita que el parametro se llame type'
-                    ));
+            if ( ! isset($_POST['type']))
 
-                return $json;
-                }
+                $rol = new Model_Roles();
+                $rol->type = "admin";
+                $rol->save();
 
-                $input = $_POST;
-                $user = new Model_Users();
-                $user->nombre = $input['type'];
-                $user->save();
+                $rol2 = new Model_Roles();
+                $rol2->type = "user";
+                $rol2->save();
 
                 $json = $this->response(array(
                     'code' => 200,
-                    'message' => ' rol creado ',
-                    'name' => $input['type']
+                    'message' => ' roles creados '
                 ));
 
                 return $json;
@@ -40,6 +34,9 @@ class Controller_Users extends Controller_Autentificacion
             }       
     }
 
-    
+    // both main and related object already exist
+    //$comment = Model_Comment::find(6);
+    //$comment->post = Model_Post::find(1);
+    //$comment->save();
 
 }
