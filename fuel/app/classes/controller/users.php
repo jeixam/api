@@ -88,7 +88,10 @@ class Controller_Users extends Controller_Autentificacion
             $user->y = $input['y'];
             $user->ciudad = $input['ciudad'];
             $user->descripcion = $input['descripcion'];
-            $user->id_rol=2
+            $users = Model_users::find('rol');
+            $users->rol[] = Model_Roles::find('user');
+            $users->save();
+            //$user->id_rol=2
             $user->save();
             //respuesta
             $json = $this->response(array(

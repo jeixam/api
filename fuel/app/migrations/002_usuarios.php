@@ -35,6 +35,7 @@ class Usuarios
             )
         )
         );
+        \DBUtil::create_index('usuarios', array('nombre','email'), 'INDEX','UNIQUE');
     }
 
     function down()

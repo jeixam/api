@@ -38,5 +38,8 @@ class Controller_Roles extends Controller_Autentificacion
     //$comment = Model_Comment::find(6);
     //$comment->post = Model_Post::find(1);
     //$comment->save();
+    //$list = Model_Lists::find($input['id_list']);
+                //$list->pieces[] = Model_Pieces::find($input['id_piece']);
+                //$list->save();
 
 }
