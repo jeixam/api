@@ -82,7 +82,7 @@ class Model_Users extends Orm\Model
         'cascade_delete' => false,
     )
 );
-    protected static $_has_many = array
+    protected static $_has_One = array
     (
     'privacidad' => array(
         'key_from' => 'id',
@@ -94,7 +94,7 @@ class Model_Users extends Orm\Model
 );
 
     protected static $_many_many = array(
-    'amigo' => array(
+    'amigoSeguidor' => array(
         'key_from' => 'id',
         'key_through_from' => 'id_amigo', 
         'table_through' => 'siguen', 
@@ -104,7 +104,7 @@ class Model_Users extends Orm\Model
         'cascade_save' => false,
         'cascade_delete' => false,
     ),
-    'amigo' => array(
+    'amigoSeguido' => array(
         'key_from' => 'id',
         'key_through_from' => 'id_usuario', 
         'table_through' => 'siguen', 

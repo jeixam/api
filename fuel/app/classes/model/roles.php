@@ -13,7 +13,7 @@ class Model_roles extends Orm\Model
         );
     protected static $_has_many = array
     (
-    'usuarios' => array(
+    'rol' => array(
         'key_from' => 'id',
         'model_to' => 'Model_users',
         'key_to' => 'id_usuario',
