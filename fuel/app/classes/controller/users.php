@@ -6,19 +6,11 @@ class Controller_Users extends Controller_Autentificacion
     public function post_createAdmin()
     {
         //si ya existe admin
-    if(!userExistAdmin())
+        
+    if($this->userExistAdmin()==true)
     {
-            try {
-            if ( ! isset($_POST['name'])) 
-            {
-                $json = $this->response(array(
-                    'code' => 400,
-                    'message' => ' parametro incorrecto, se necesita que el parametro se llame name'
-                ));
-
-                return $json;
-            }
-
+        try 
+        {
             $user = new Model_Users();
             $user->nombre = "admin";
             $user->password = "1234";
@@ -29,17 +21,16 @@ class Controller_Users extends Controller_Autentificacion
             $user->x = 0;
             $user->y = 0;
             $user->ciudad = "mundo digital";
-            $user->id_rol=1
+            $user->id_rol=1;
             $user->save();
 
             $json = $this->response(array(
                 'code' => 200,
                 'message' => ' usuario creado ',
-                'name' => $user->nombre;
+                'name' => $user->nombre
             ));
 
             return $json;
-
         } 
         catch (Exception $e) 
         {
@@ -53,10 +44,10 @@ class Controller_Users extends Controller_Autentificacion
     }
     else
     {
-        $json = $this->response(array(
+        $json = $this->response(array
+            (
                 'code' => 400,
                 'message' => ' usuario admin ya creado ',
-                'name' => $user->nombre;
             ));
 
             return $json;
@@ -254,26 +245,36 @@ protected function userExistAdmin ()
       (
         'where' => array
         (
-          array('nombre'=>"admin",
+          array('nombre'=>"admin")
         )
         ));
-        if(!empty($user))
+        if(isset($user))
         {
-          foreach ($user as $key => $value)
+            if(!empty($user))
             {
-              $username = $user[$key]->nombre;
-            }
-            if($username=="admin")
-            {
-                return true;
+                $username;
+              foreach ($user as $key => $value)
+                {
+                  $username = $user[$key]->nombre;
+                } 
+                if($username=="admin")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }         
             }
             else
             {
-                return false
-            }         
+                return true;
+            }
+        }
+        else 
+        {
+            return true;
         }                  
     }
-}
-
 }
 

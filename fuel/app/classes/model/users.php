@@ -30,7 +30,7 @@ class Model_Users extends Orm\Model
         (
             'data_type' => 'varchar'
         ),
-        'cumplaños' => array
+        'birtdate' => array
         (
             'data_type' => 'varchar'
         ),
@@ -59,8 +59,14 @@ class Model_Users extends Orm\Model
         'key_to' => 'id_usuario',
         'cascade_save' => false,
         'cascade_delete' => false,
-    )
-);
+    ),
+    'noticias' => array(
+        'key_from' => 'id',
+        'model_to' => 'Model_noticias',
+        'key_to' => 'id_usuario',
+        'cascade_save' => false,
+        'cascade_delete' => false,
+    ));
 
     protected static $_belongs_to = array
     (
@@ -72,16 +78,6 @@ class Model_Users extends Orm\Model
         'cascade_delete' => false,
     )
 );
-    protected static $_has_many = array
-    (
-    'noticias' => array(
-        'key_from' => 'id',
-        'model_to' => 'Model_noticias',
-        'key_to' => 'id_usuario',
-        'cascade_save' => false,
-        'cascade_delete' => false,
-    )
-);
     protected static $_has_One = array
     (
     'privacidad' => array(
@@ -89,7 +85,7 @@ class Model_Users extends Orm\Model
         'model_to' => 'Model_privacidad',
         'key_to' => 'id_usuario',
         'cascade_save' => false,
-        'cascade_delete' => false,
+        'userscascade_delete' => false,
     )
 );
 
@@ -109,8 +105,9 @@ class Model_Users extends Orm\Model
         'key_through_from' => 'id_usuario', 
         'table_through' => 'siguen', 
         'key_through_to' => 'id_usuario',  
-        'model_to' => 'Model_Users',
+        'model_to' => 'usersModel_Users',
         'key_to' => 'id',
         'cascade_save' => false,
         'cascade_delete' => false,
+    ));
 }
