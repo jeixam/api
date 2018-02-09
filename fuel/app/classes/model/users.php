@@ -70,9 +70,9 @@ class Model_Users extends Orm\Model
 
     protected static $_belongs_to = array
     (
-    'usuarios' => array(
+    'rol' => array(
         'key_from' => 'id_rol',
-        'model_to' => 'Model_rol',
+        'model_to' => 'Model_roles',
         'key_to' => 'id',
         'cascade_save' => false,
         'cascade_delete' => false,
@@ -105,7 +105,7 @@ class Model_Users extends Orm\Model
         'key_through_from' => 'id_usuario', 
         'table_through' => 'siguen', 
         'key_through_to' => 'id_usuario',  
-        'model_to' => 'usersModel_Users',
+        'model_to' => 'Model_Users',
         'key_to' => 'id',
         'cascade_save' => false,
         'cascade_delete' => false,

@@ -7,66 +7,72 @@ class Controller_Users extends Controller_Autentificacion
     {
         //si ya existe admin
         
-    if($this->userExistAdmin()==true)
-    {
-        try 
+        if($this->userExistAdmin()==true)
         {
-            $user = new Model_Users();
-            $user->nombre = "admin";
-            $user->password = "1234";
-            $user->email = "admin@admin.es";
-            $user->id_divice = "A0000000A";
-            $user->image = "https://SoyUnaImagenDeUnSitio";
-            $user->birtdate = "hoy/mes/año";
-            $user->x = 0;
-            $user->y = 0;
-            $user->ciudad = "mundo digital";
-            $user->id_rol=1;
-            $user->save();
+            try 
+            {
+                $user = new Model_Users();
+                $user->nombre = "admin";
+                $user->password = "1234";
+                $user->email = "admin@admin.es";
+                $user->id_divice = "A0000000A";
+                $user->image = "https://SoyUnaImagenDeUnSitio";
+                $user->birtdate = "hoy/mes/año";
+                $user->x = 0;
+                $user->y = 0;
+                $user->ciudad = "mundo digital";
+                $user->descripcion = "usuarios administrador";
+                $rol = Model_roles::find('all', array
+                          (
+                              'where' => array
+                              (
+                                array('type'=>"admin")
+                              )
+                          ));
+                    foreach ($rol as $key => $value)
+                    {
+                        $id = $rol[$key]->id;
+                    }
+                
+                $user->id_rol=$id;
+                //Model_roles::find($id);
+                $user->save();
 
-            $json = $this->response(array(
-                'code' => 200,
-                'message' => ' usuario creado ',
-                'name' => $user->nombre
-            ));
+                $json = $this->response(array(
+                    'code' => 200,
+                    'message' => ' usuario creado ',
+                    'name' => $user->nombre
+                ));
 
-            return $json;
-        } 
-        catch (Exception $e) 
-        {
-            $json = $this->response(array(
-                'code' => 500,
-                'message' => $e->getMessage(),
-            ));
-
-            return $json;
-        }
-    }
-    else
-    {
-        $json = $this->response(array
-            (
-                'code' => 400,
-                'message' => ' usuario admin ya creado ',
-            ));
-
-            return $json;
-    }       
-}
-
-    public function post_create()
-    {
-        try {
-            if ( ! isset($_POST['name'])) 
+                return $json;
+            } 
+            catch (Exception $e) 
             {
                 $json = $this->response(array(
-                    'code' => 400,
-                    'message' => ' parametro incorrecto, se necesita que el parametro se llame name'
+                    'code' => 500,
+                    'message' => $e->getMessage(),
                 ));
 
                 return $json;
             }
+        }
+        else
+        {
+            $json = $this->response(array
+                (
+                    'code' => 400,
+                    'message' => ' usuario admin ya creado ',
+                ));
 
+                return $json;
+        }       
+}
+
+    public function post_create()
+    {
+        try 
+        {
+            
             $input = $_POST;
             $user = new Model_Users();
             $user->nombre = $input['nombre'];
@@ -79,16 +85,24 @@ class Controller_Users extends Controller_Autentificacion
             $user->y = $input['y'];
             $user->ciudad = $input['ciudad'];
             $user->descripcion = $input['descripcion'];
-            $users = Model_users::find('rol');
-            $users->rol[] = Model_Roles::find('user');
-            $users->save();
-            //$user->id_rol=2
+            $rol = Model_roles::find('all', array
+                          (
+                              'where' => array
+                              (
+                                array('type'=>"user")
+                              )
+                          ));
+                    foreach ($rol as $key => $value)
+                    {
+                        $id = $rol[$key]->id;
+                    }
+            $user->id_rol=$id;
             $user->save();
             //respuesta
             $json = $this->response(array(
                 'code' => 200,
                 'message' => ' usuario creado ',
-                'name' => $input['name']
+                'name' => $user->nombre
             ));
 
             return $json;
@@ -164,6 +178,16 @@ class Controller_Users extends Controller_Autentificacion
 
     public function Post_login()
     {
+        if ( ! isset($_POST['nombre'],$_POST['password'])) 
+            {
+                $json = $this->response(array(
+                'code' => 400,
+                'message' => ' parametros incorrectos'
+                ));
+
+                return $json;
+            }
+
     	$input= $_POST;
         $input['nombre'];
         $entry = Model_Users::find('all', 
@@ -275,6 +299,19 @@ protected function userExistAdmin ()
         {
             return true;
         }                  
+    }
+
+   public function parametersIncorrect()
+    { 
+        if ( ! isset($_POST['nombre'],$_POST['password'])) 
+            {
+                $json = $this->response(array(
+                'code' => 400,
+                'message' => ' parametros incorrectos'
+                ));
+
+                return $json;
+            }
     }
 }
 
