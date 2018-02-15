@@ -110,4 +110,71 @@ class Controller_Autentificacion extends Controller_Rest
           return $id;         
         }                  
     }
+
+    /**
+     *  Funcion para saber si el usuario es un adminitrador
+     * @return bool
+     */
+    protected function userIsAdmin ()
+    {
+      $tokenHeader = apache_request_headers();
+      $token = $tokenHeader['token'];
+      $datosUsers = JWT::decode($token, $this->key, $this->algorithm);
+
+      if($datosUsers->nombre=="admin")
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }                 
+    }
+/**
+     *  Funcion para saber el id de una lista introduciendo el nombre
+     * @return int
+     */
+    protected function idNameList($nombreLista)
+    {
+        $lista = Model_Listas::find('all', array
+      (
+        'where' => array
+        (
+          array('titulo'=>$nombreLista) 
+        )
+        ));
+        if(!empty($lista))
+        {
+          $id=0;
+          foreach ($lista as $key => $value)
+            {
+              $id = $lista[$key]->id;
+            }
+          return $id;         
+        }
+    }
+
+    /**
+     *  Funcion para saber el id de una cancion introduciendo el nombre
+     * @return int
+     */
+    protected function idNameSong($nombreCancion)
+    {
+        $lista = Model_Cancion::find('all', array
+      (
+        'where' => array
+        (
+          array('nombre'=>$nombreCancion) 
+        )
+        ));
+        if(!empty($lista))
+        {
+          $id=0;
+          foreach ($lista as $key => $value)
+            {
+              $id = $lista[$key]->id;
+            }
+          return $id;         
+        }
+    }
 }
