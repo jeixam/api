@@ -96,10 +96,76 @@ class Controller_Canciones extends Controller_Autentificacion
 
     public function post_add()
     {
+
         if($this->LoginAuthentification())
         {
-            
+            try {
+                    if ( ! isset($_POST['id_lista'],$_POST['id_cancion'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametros incorrectos'
+                        ));
+
+                        return $json;
+                    }
+
+                    $input = $_POST;
+                    $lista = Model_Listas::find($input['id_lista']);
+
+                    if(empty($lista))
+                    {
+                        $response = $this->response(array(
+                            'code' => 400,
+                            'message' => 'lista no existe',
+                        ));
+                        return $response;
+                    }
+
+                    $cancion = Model_cancion::find($input['id_cancion']);
+
+                    if(empty($cancion))
+                    {
+                        $response = $this->response(array(
+                            'code' => 400,
+                            'message' => ' no existe la cancion',
+                        ));
+                        return $response;
+                    }
+                    //guardar canciones en una lista
+                    $lista = Model_Listas::find($input['id_lista']);
+                    $lista->cancion[] = Model_cancion::find($input['id_cancion']);
+                    $list->save();
+
+                    $json = $this->response(array(
+                        'code' => 200,
+                        'message' => ' cancion añadida ',
+                        'nombre' => $lista->nombre
+                    ));
+
+                    return $json;
+
+                } 
+                catch (Exception $e) 
+                {
+                    $json = $this->response(array(
+                    'code' => 500,
+                    'message' => $e->getMessage(),
+                    ));
+
+                    return $json;
+               }
         }
+        else
+        {
+            $response = $this->response(array
+                (
+                    'code' => 400,
+                    'message' => ' El usuario debe loguearse primero ',
+                    'data' => ''
+                ));
+            return $response;
+        } 
     }
 
 }
