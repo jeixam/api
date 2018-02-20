@@ -35,8 +35,16 @@ class Controller_Users extends Controller_Autentificacion
                     }
                 
                 $user->id_rol=$id;
-                //Model_roles::find($id);
                 $user->save();
+                //crea la privacidad del usuario
+                $privacity=new Model_privacidad();
+                $privacity->notificaciones=0;
+                $privacity->listas=0;
+                $privacity->amigos=0;
+                $privacity->notificaciones=0;
+                $privacity->perfil=0;
+                $privacity->id_usuario=$user->id;
+                $privacity->save();
 
                 $json = $this->response(array(
                     'code' => 200,
@@ -72,7 +80,15 @@ class Controller_Users extends Controller_Autentificacion
     {
         try 
         {
-            
+            if ( ! isset($_POST['nombre'],$_POST['password'],$_POST['email'],$_POST['id_divice'],$_POST['x'],$_POST['y'],$_POST['descripcion'],$_POST['birtdate'],$_POST['image'],$_POST['ciudad'])) 
+                {
+                    $json = $this->response(array(
+                    'code' => 400,
+                    'message' => ' parametros enviados incorrectos'
+                    ));
+
+                    return $json;
+                }
             $input = $_POST;
             $user = new Model_Users();
             $user->nombre = $input['nombre'];
@@ -98,6 +114,15 @@ class Controller_Users extends Controller_Autentificacion
                     }
             $user->id_rol=$id;
             $user->save();
+            //crea la privacidad del usuario
+                $privacity=new Model_privacidad();
+                $privacity->notificaciones=0;
+                $privacity->listas=0;
+                $privacity->amigos=0;
+                $privacity->notificaciones=0;
+                $privacity->perfil=0;
+                $privacity->id_usuario=$user->id;
+                $privacity->save();
             //respuesta
             $json = $this->response(array(
                 'code' => 200,
@@ -231,10 +256,8 @@ class Controller_Users extends Controller_Autentificacion
 public function post_edit()
     {
     	//llamar a la funcion
-        if($this->LoginAuthentification())
-        {
-        	$infoID=$this->userID();
             $input = $_POST;
+        	$infoID=$this->userIDEmail($input['email']);
             $datauser = DB::update('usuarios');
             $datauser->where('id', '=', $infoID);
             $datauser->value('password', $input['password']);
@@ -246,16 +269,6 @@ public function post_edit()
                 'data' => $input['password']
             ));
             return $response;
-        }
-        else
-        {
-            $response = $this->response(array(
-                'code' => 400,
-                'message' => ' El usuario debe loguearse primero ',
-                'data' => var_dump($this->LoginAuthentification())
-            ));
-            return $response;
-        }
     }
 
 /**
@@ -299,19 +312,6 @@ protected function userExistAdmin ()
         {
             return true;
         }                  
-    }
-
-   public function parametersIncorrect()
-    { 
-        if ( ! isset($_POST['nombre'],$_POST['password'])) 
-            {
-                $json = $this->response(array(
-                'code' => 400,
-                'message' => ' parametros incorrectos'
-                ));
-
-                return $json;
-            }
     }
 }
 

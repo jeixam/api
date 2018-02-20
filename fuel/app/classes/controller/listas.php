@@ -66,7 +66,7 @@ class Controller_Listas extends Controller_Autentificacion
     {
     	$listas = Model_Listas::find('all');
 
-    	return $this->response(Arr::reindex($listas));
+    	return var_dump($listas);
     }
 
     public function post_delete()
@@ -76,7 +76,7 @@ class Controller_Listas extends Controller_Autentificacion
             $nombreLista=$_POST['titulo'];
             $lista = Model_listas::find($this->idNameList($nombreLista));
             //la lista solo puede ser eliminada por su usuario o el admin
-            if($this->userID()==$lista->id_usuario||$this->userID()==1)
+            if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
             {
                 $tituloLista = $lista->titulo;
                 $lista->delete();
@@ -109,7 +109,7 @@ class Controller_Listas extends Controller_Autentificacion
             $nombreListaeditada=$_POST['nombreListaeditada'];
             $lista = Model_listas::find($this->idNameList($nombreListaeditada));
             //la lista solo puede ser editada por su usuario o el admin
-            if($this->userID()==$lista->id_usuario||$this->userID()==1)
+            if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
             {
                 if ($lista->editable==1) 
                 {

@@ -177,4 +177,29 @@ class Controller_Autentificacion extends Controller_Rest
           return $id;         
         }
     }
+
+    /**
+     *  Funcion para obtener el id del usuario por el email
+     * @return int
+     */
+    protected function userIDEmail ($email)
+    {
+      
+      $user = Model_users::find('all', array
+      (
+        'where' => array
+        (
+          array('email'=>$email),
+        )
+        ));
+        if(!empty($user))
+        {
+          $id=0;
+          foreach ($user as $key => $value)
+            {
+              $id = $user[$key]->id;
+            }
+          return $id;         
+        }                  
+    }
 }

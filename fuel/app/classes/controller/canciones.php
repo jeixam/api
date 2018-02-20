@@ -4,7 +4,7 @@ class Controller_Canciones extends Controller_Autentificacion
 {
     public function post_create()
     {
-        if($this->LoginAuthentification()&&$this->userID()==1)
+        if($this->LoginAuthentification()&& $this->userIsAdmin ())
         {
             try {
                     if ( ! isset($_POST['nombre'])) 
@@ -69,7 +69,7 @@ class Controller_Canciones extends Controller_Autentificacion
             $nombreCancion=$_POST['nombre'];
             $canciones = Model_cancion::find($this->idNameSong($nombreCancion));
             //solo el admin puede eliminar canciones 
-            if($this->userID()==1)
+            if($this->userIsAdmin ())
             {
                 $nombreCancion = $canciones->nombre;
                 $canciones->delete();
@@ -134,13 +134,12 @@ class Controller_Canciones extends Controller_Autentificacion
                     }
                     //guardar canciones en una lista
                     $lista = Model_Listas::find($input['id_lista']);
-                    $lista->cancion[] = Model_cancion::find($input['id_cancion']);
-                    $list->save();
+                    $lista->id_cancion = Model_cancion::find($input['id_cancion']);
+                    $lista->save();
 
                     $json = $this->response(array(
                         'code' => 200,
                         'message' => ' cancion añadida ',
-                        'nombre' => $lista->nombre
                     ));
 
                     return $json;
