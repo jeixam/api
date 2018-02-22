@@ -21,14 +21,19 @@ class Model_cancion extends Orm\Model
         (
             'data_type' => 'varchar'
 
+        ),
+        'reproducciones' => array
+        (
+            'data_type' => 'int'
         )
+        
         );
     
     protected static $_many_many = array(
     'listas' => array
     (
         'key_from' => 'id',
-        'key_through_from' => 'id_listas', 
+        'key_through_from' => 'id_lista', 
         'table_through' => 'tiene', 
         'key_through_to' => 'id_cancion', 
         'model_to' => 'Model_listas',

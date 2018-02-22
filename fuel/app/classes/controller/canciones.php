@@ -22,6 +22,7 @@ class Controller_Canciones extends Controller_Autentificacion
                     $canciones->nombre = $input['nombre'];
                     $canciones->artista = $input['artista'];
                     $canciones->url = $input['url'];
+                    $canciones->reproducciones=0;
                     $canciones->save();
 
                     $json = $this->response(array(
@@ -134,12 +135,13 @@ class Controller_Canciones extends Controller_Autentificacion
                     }
                     //guardar canciones en una lista
                     $lista = Model_Listas::find($input['id_lista']);
-                    $lista->id_cancion = Model_cancion::find($input['id_cancion']);
+                    $lista->cancion[] = Model_cancion::find($input['id_cancion']);
                     $lista->save();
 
                     $json = $this->response(array(
                         'code' => 200,
                         'message' => ' cancion añadida ',
+                        //'data'=>var_dump(Model_cancion::find('all'))
                     ));
 
                     return $json;
@@ -166,5 +168,45 @@ class Controller_Canciones extends Controller_Autentificacion
             return $response;
         } 
     }
+
+    public function post_reproduction()
+    { 
+        if($this->LoginAuthentification())
+        {
+            $nombreCancion=$_POST['nombreCancion'];
+            //$cancion = Model_cancion::find($this->idNameCancion($nombreCancion));
+            //en tiene
+            $cancionEnLista = Model_listas::find('all', array
+                          (
+                              'where' => array
+                              (
+                                array('id_cancion'=>$this->idNameSong($nombreCancion))
+                              )
+                          ));
+            var_dump($cancionEnLista);
+            exit();
+
+            $infoID=$cancion->id;
+            $datacancion = DB::update('cancion');
+            $datacancion->where('id', '=', $infoID);
+            $datacancion->value('reproducciones', $cancion->reproduciones+1);
+            $datacancion->execute();
+
+            $response = $this->response(array(
+                        'code' => 400,
+                        'message' => ' cancion reproducida ',
+                        ));
+                        return $response;
+        }
+        else
+        {
+            $response = $this->response(array
+                (
+                    'code' => 400,
+                    'message' => ' El usuario debe loguearse primero '
+                ));
+            return $response;
+        }     
+    }  
 
 }
