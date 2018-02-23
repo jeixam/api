@@ -164,31 +164,7 @@ public function post_predefinedLists()
                     if ($this->userIsAdmin())
                     {
                         $listas = new Model_Listas();
-                        $listas->titulo ='Por Descubrir';
-                        $listas->id_usuario = $this->userID();
-                        if ($this->userIsAdmin())
-                        {
-                            $listas->editable=0;
-                        }
-                        else
-                        {
-                            $listas->editable=1;
-                        }
-                        $listas->save();
-                        $listas = new Model_Listas();
                         $listas->titulo ='Mas Escuchadas';
-                        $listas->id_usuario = $this->userID();
-                        if ($this->userIsAdmin())
-                        {
-                            $listas->editable=0;
-                        }
-                        else
-                        {
-                            $listas->editable=1;
-                        }
-                        $listas->save();
-                        $listas = new Model_Listas();
-                        $listas->titulo ='Ultimas Escuchadas';
                         $listas->id_usuario = $this->userID();
                         if ($this->userIsAdmin())
                         {

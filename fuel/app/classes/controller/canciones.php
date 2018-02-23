@@ -173,19 +173,41 @@ class Controller_Canciones extends Controller_Autentificacion
     { 
         if($this->LoginAuthentification())
         {
+            if ( ! isset($_POST['nombreCancion'],$_POST['nombreLista'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrecto, se necesita que el parametro se llamen nombreCancion y nombreLista'
+                        ));
+
+                        return $json;
+                    }
             $nombreCancion=$_POST['nombreCancion'];
             $nombreLista=$_POST['nombreLista'];
-            
-            //en tiene
+            //reproduce y añade uno al campo
             $infoID=$this->IdCancionEnLista($nombreCancion,$nombreLista);
             $datacancion = DB::update('cancion');
             $datacancion->where('id', '=', $infoID);
             $cancion = Model_cancion::find($infoID);
+            if($cancion==null)
+            {
+                $response = $this->response(array(
+                        'code' => 400,
+                        'message' => ' cancion no se puede reproducir ',
+                        ));
+                        return $response;
+            }
             $datacancion->value('reproducciones',$cancion->reproducciones+1);
             $datacancion->execute();
+            //añadir a la lista de reproducidas
+            $listaReproduccion = Model_Listas::find($this->IdUserListReproduction());
+            var_dump($listaReproduccion);
+            exit();
+            $listaReproduccion->cancion[] = Model_cancion::find($this->idNameSong($nombreCancion));
+            $listaReproduccion->save();
 
             $response = $this->response(array(
-                        'code' => 400,
+                        'code' => 200,
                         'message' => ' cancion reproducida ',
                         ));
                         return $response;

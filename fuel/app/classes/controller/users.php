@@ -123,6 +123,8 @@ class Controller_Users extends Controller_Autentificacion
                 $privacity->perfil=0;
                 $privacity->id_usuario=$user->id;
                 $privacity->save();
+            //crea la lista del usuario para las canciones reproducidas
+                $this->ReproducidasPorUsuario($user->id);
             //respuesta
             $json = $this->response(array(
                 'code' => 200,

@@ -59,3 +59,61 @@ WARNING - 2018-02-23 11:44:55 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2018-02-23 11:46:23 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2018-02-23 11:47:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2018-02-23 11:47:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:13 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:14 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:16 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:19 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:20 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:21 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 14:33:25 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:09:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:09:56 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:10:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:12:26 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:13:28 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:15:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:43:18 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:44:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 15:44:05 --> Notice - Undefined index: nombreLista in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 177
+WARNING - 2018-02-23 15:47:25 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 15:47:25 --> Notice - Trying to get property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 193
+WARNING - 2018-02-23 15:52:19 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:53:16 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 15:53:16 --> Notice - Trying to get property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 193
+WARNING - 2018-02-23 15:55:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:57:51 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:58:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 15:59:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:00:17 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:03:58 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:07:28 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:07:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:12:52 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:13:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:13:05 --> Warning - Attempt to modify property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 211
+WARNING - 2018-02-23 16:14:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:14:42 --> Warning - Attempt to modify property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 211
+WARNING - 2018-02-23 16:15:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:15:29 --> Warning - Attempt to modify property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 204
+WARNING - 2018-02-23 16:15:56 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:15:56 --> Warning - Attempt to modify property of non-object in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 211
+WARNING - 2018-02-23 16:23:52 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:23:52 --> Error - Call to a member function save() on array in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 221
+WARNING - 2018-02-23 16:35:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:35:11 --> Error - Call to undefined method stdClass::save() in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 221
+WARNING - 2018-02-23 16:37:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:39:06 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:40:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:40:43 --> Error - Call to undefined method stdClass::save() in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 224
+WARNING - 2018-02-23 16:42:53 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2018-02-23 16:43:56 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:43:56 --> Error - syntax error, unexpected 'foreach' (T_FOREACH) in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 214
+WARNING - 2018-02-23 16:45:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:45:29 --> Notice - Undefined variable: id in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 220
+WARNING - 2018-02-23 16:45:57 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:45:57 --> Notice - Undefined variable: id in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 219
+WARNING - 2018-02-23 16:56:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2018-02-23 16:56:42 --> Error - Call to undefined method stdClass::save() in /var/www/html/api/fuel/app/classes/controller/canciones.php on line 205

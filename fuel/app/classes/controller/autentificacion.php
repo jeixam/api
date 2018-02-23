@@ -227,4 +227,38 @@ class Controller_Autentificacion extends Controller_Rest
                   return $id;         
                 }
     }
+    /**
+     *  Funcion para crear una lista reproducidas por usuario
+     */
+    protected function ReproducidasPorUsuario ($userID)
+    {
+      $listas = new Model_Listas();
+      $listas->titulo ='reproducidas';
+      $listas->id_usuario = $userID;
+      $listas->editable=0;
+      $listas->save();
+    }
+    /**
+     *  Funcion que que debuelve el id del usuario que tiene la lista reproduccion
+     */
+protected function IdUserListReproduction ()
+    {
+      $lista = Model_Listas::find('all', array
+                  (
+                    'where' => array
+                    (
+                      array('id_usuario'=>$this->userID()),
+                      array('titulo'=>'reproducidas')
+                    )
+                    ));
+                    if(!empty($lista))
+                    {
+                        $id=0;
+                      foreach ($lista as $key => $value)
+                        {
+                          $id = $lista[$key]->id;
+                        } 
+                        return $id;        
+                    }
+    }
 }
