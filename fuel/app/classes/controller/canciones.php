@@ -174,22 +174,14 @@ class Controller_Canciones extends Controller_Autentificacion
         if($this->LoginAuthentification())
         {
             $nombreCancion=$_POST['nombreCancion'];
-            //$cancion = Model_cancion::find($this->idNameCancion($nombreCancion));
+            $nombreLista=$_POST['nombreLista'];
+            
             //en tiene
-            $cancionEnLista = Model_listas::find('all', array
-                          (
-                              'where' => array
-                              (
-                                array('id_cancion'=>$this->idNameSong($nombreCancion))
-                              )
-                          ));
-            var_dump($cancionEnLista);
-            exit();
-
-            $infoID=$cancion->id;
+            $infoID=$this->IdCancionEnLista($nombreCancion,$nombreLista);
             $datacancion = DB::update('cancion');
             $datacancion->where('id', '=', $infoID);
-            $datacancion->value('reproducciones', $cancion->reproduciones+1);
+            $cancion = Model_cancion::find($infoID);
+            $datacancion->value('reproducciones',$cancion->reproducciones+1);
             $datacancion->execute();
 
             $response = $this->response(array(

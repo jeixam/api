@@ -202,4 +202,29 @@ class Controller_Autentificacion extends Controller_Rest
           return $id;         
         }                  
     }
+
+    /**
+     *  Funcion para obtener el id de una cancion que hay en una lista en la tabla tiene
+     * @return int
+     */
+    protected function IdCancionEnLista ($nombreCancion,$nombreLista)
+    {
+      $cancionEnLista = Model_tiene::find('all', array
+                (
+                    'where' => array
+                    (
+                        array('id_cancion'=>$this->idNameSong($nombreCancion)),
+                        array('id_lista'=>$this->idNameList($nombreLista))
+                    )
+                ));
+                if(!empty($cancionEnLista))
+                {
+                  $id=0;
+                  foreach ($cancionEnLista as $key => $value)
+                    {
+                      $id = $cancionEnLista[$key]->id_cancion;
+                    }
+                  return $id;         
+                }
+    }
 }
