@@ -148,7 +148,7 @@ class Controller_Users extends Controller_Autentificacion
 
     public function get_users()
     {
-    	if($this->LoginAuthentification())
+    	if($this->userIsAdmin())
         {
         	$users = Model_Users::find('all');
 
@@ -168,7 +168,7 @@ class Controller_Users extends Controller_Autentificacion
             $response = $this->response(array
             	(
                 	'code' => 400,
-                	'message' => ' El usuario debe loguearse primero ',
+                	'message' => ' El usuario debe loguearse primero y ser admin ',
                 	'data' => ''
             	));
             return $response;
