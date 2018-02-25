@@ -6,6 +6,16 @@ class Controller_Privacidad extends Controller_Autentificacion
     {
         if($this->LoginAuthentification())
         {
+            if ( ! isset($_POST['notificaciones'],$_POST['amigos'],$_POST['perfil'],$_POST['listas'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrectos'
+                        ));
+
+                        return $json;
+                    }
+
             $input = $_POST;
             $infoID=$this->userID();
             $datauser = DB::update('privacidad');

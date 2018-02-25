@@ -74,6 +74,16 @@ class Controller_Listas extends Controller_Autentificacion
         if($this->LoginAuthentification())
         {
             $nombreLista=$_POST['titulo'];
+
+            if ( ! isset($_POST['titulo'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrectos'
+                        ));
+
+                        return $json;
+                    }
             $lista = Model_listas::find($this->idNameList($nombreLista));
             //la lista solo puede ser eliminada por su usuario o el admin
             if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
@@ -106,7 +116,17 @@ class Controller_Listas extends Controller_Autentificacion
         //llamar a la funcion
         if($this->LoginAuthentification())
         {
-            $nombreListaeditada=$_POST['nombreListaeditada'];
+            $nombreListaeditada=$_POST['titulo'];
+
+            if ( ! isset($_POST['titulo'],$_POST['nombre'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrectos'
+                        ));
+
+                        return $json;
+                    }
             $lista = Model_listas::find($this->idNameList($nombreListaeditada));
             //la lista solo puede ser editada por su usuario o el admin
             if($this->userID()==$lista->id_usuario||$this->userIsAdmin())

@@ -258,8 +258,26 @@ class Controller_Users extends Controller_Autentificacion
 public function post_edit()
     {
     	//llamar a la funcion
+        if ( ! isset($_POST['email'],$_POST['password'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrectos'
+                        ));
+
+                        return $json;
+                    }
             $input = $_POST;
         	$infoID=$this->userIDEmail($input['email']);
+            if(empty($infoID))
+            {
+                $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' el email no existe'
+                        ));
+
+                        return $json;
+            }
             $datauser = DB::update('usuarios');
             $datauser->where('id', '=', $infoID);
             $datauser->value('password', $input['password']);

@@ -7,11 +7,11 @@ class Controller_Canciones extends Controller_Autentificacion
         if($this->LoginAuthentification()&& $this->userIsAdmin ())
         {
             try {
-                    if ( ! isset($_POST['nombre'])) 
+                    if ( ! isset($_POST['nombre'],$_POST['artista'],$_POST['url'])) 
                     {
                         $json = $this->response(array(
                         'code' => 400,
-                        'message' => ' parametro incorrecto, se necesita que el parametro se llame nombre'
+                        'message' => ' parametros incorrectos'
                         ));
 
                         return $json;
@@ -68,6 +68,16 @@ class Controller_Canciones extends Controller_Autentificacion
         if($this->LoginAuthentification())
         {
             $nombreCancion=$_POST['nombre'];
+
+            if ( ! isset($_POST['nombre'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrecto, se necesita que el parametro se llame nombre'
+                        ));
+
+                        return $json;
+                    }
             $canciones = Model_cancion::find($this->idNameSong($nombreCancion));
             //solo el admin puede eliminar canciones 
             if($this->userIsAdmin ())
@@ -189,7 +199,7 @@ class Controller_Canciones extends Controller_Autentificacion
             $datacancion = DB::update('cancion');
             $datacancion->where('id', '=', $infoID);
             $cancion = Model_cancion::find($infoID);
-            if($cancion==null)
+            if(empty($cancion))
             {
                 $response = $this->response(array(
                         'code' => 400,
@@ -201,8 +211,15 @@ class Controller_Canciones extends Controller_Autentificacion
             $datacancion->execute();
             //añadir a la lista de reproducidas
             $listaReproduccion = Model_Listas::find($this->IdUserListReproduction());
-            var_dump($listaReproduccion);
-            exit();
+            
+            if(empty($listaReproduccion))
+            {
+                $response = $this->response(array(
+                        'code' => 400,
+                        'message' => ' cancion no se puede reproducir ',
+                        ));
+                        return $response;
+            }
             $listaReproduccion->cancion[] = Model_cancion::find($this->idNameSong($nombreCancion));
             $listaReproduccion->save();
 
@@ -221,6 +238,64 @@ class Controller_Canciones extends Controller_Autentificacion
                 ));
             return $response;
         }     
+    }
+
+    public function post_remove()
+    {
+        if($this->LoginAuthentification())
+        {
+            if ( ! isset($_POST['nombreCancion'],$_POST['nombreLista'])) 
+                    {
+                        $json = $this->response(array(
+                        'code' => 400,
+                        'message' => ' parametro incorrecto, se necesita que el parametro se llamen nombreCancion y nombreLista'
+                        ));
+
+                        return $json;
+                    }
+            $nombreCancion=$_POST['nombreCancion'];
+            $nombreLista=$_POST['nombreLista'];
+            
+            $lista=Model_Listas::find($this->idNameList($nombreLista));
+            if(empty($lista))
+            {
+                $response = $this->response(array(
+                        'code' => 400,
+                        'message' => ' lista no existe ',
+                        ));
+                        return $response;
+            }
+            if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
+            {
+                $tiene=Model_Tiene::find($this->idTableTiene($nombreCancion,$nombreLista));
+                
+                if(empty($tiene))
+                {
+                    $response = $this->response(array(
+                            'code' => 400,
+                            'message' => ' no se encuentra la relacion ',
+                            ));
+                            return $response;
+                }
+                $tiene->delete();
+
+                $json = $this->response(array(
+                    'code' => 200,
+                    'message' => ' cancion quitada de la lista ',
+                    'name' => $tituloLista
+                    ));
+                return $json;
+            }
+        }
+        else
+        {
+            $response = $this->response(array
+                (
+                    'code' => 400,
+                    'message' => ' El usuario debe loguearse primero '
+                ));
+            return $response;
+        }
     }  
 
 }

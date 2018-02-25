@@ -31,8 +31,7 @@ class Controller_Autentificacion extends Controller_Rest
         //isset  Determina si una variable esta definida y no es NULL
 
         if(isset($tokenHeader['token']))
-        {
-             
+        {  
           $token = $tokenHeader['token'];
           $datosUsers = JWT::decode($token, $this->key, $this->algorithm); 
           //var_dump($datosUsers);
@@ -243,7 +242,7 @@ class Controller_Autentificacion extends Controller_Rest
      */
 protected function IdUserListReproduction ()
     {
-      $lista = Model_Listas::find('all', array
+      $lista = Model_listas::find('all', array
                   (
                     'where' => array
                     (
@@ -259,6 +258,32 @@ protected function IdUserListReproduction ()
                           $id = $lista[$key]->id;
                         } 
                         return $id;        
+                    }
+    }
+    /**
+     *  Funcion que que debuelve el id de la tabla tiene al introducir su idCancion,idlista
+     */
+    protected function IdTableTiene ($nombreCancion,$nombreLista)
+    {
+      $lista = Model_tiene::find('all', array
+                  (
+                    'where' => array
+                    (
+                      array('id_lista'=>$this->idNameList($nombreLista)),
+                      array('id_cancion'=>$this->idNameSong($nombreCancion))
+                    )
+                    ));
+                    if(!empty($lista))
+                    {
+                        $id1=0;
+                        $id2=0;
+                        
+                      foreach ($lista as $key => $value)
+                        {
+                          $id2 = $lista[$key]->id_cancion;
+                        } 
+
+                        return $id2;        
                     }
     }
 }
