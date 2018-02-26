@@ -216,7 +216,7 @@ class Controller_Canciones extends Controller_Autentificacion
             {
                 $response = $this->response(array(
                         'code' => 400,
-                        'message' => ' cancion no se puede reproducir ',
+                        'message' => ' cancion no se puede reproducir no se añade a la reprodicion ',
                         ));
                         return $response;
             }

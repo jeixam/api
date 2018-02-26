@@ -73,7 +73,6 @@ class Controller_Listas extends Controller_Autentificacion
     {
         if($this->LoginAuthentification())
         {
-            $nombreLista=$_POST['titulo'];
 
             if ( ! isset($_POST['titulo'])) 
                     {
@@ -84,7 +83,16 @@ class Controller_Listas extends Controller_Autentificacion
 
                         return $json;
                     }
+            $nombreLista=$_POST['titulo'];
             $lista = Model_listas::find($this->idNameList($nombreLista));
+            if(empty($lista))
+                    {
+                        $response = $this->response(array(
+                            'code' => 400,
+                            'message' => ' lista no existe',
+                        ));
+                        return $response;
+                    }
             //la lista solo puede ser eliminada por su usuario o el admin
             if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
             {
@@ -116,7 +124,6 @@ class Controller_Listas extends Controller_Autentificacion
         //llamar a la funcion
         if($this->LoginAuthentification())
         {
-            $nombreListaeditada=$_POST['titulo'];
 
             if ( ! isset($_POST['titulo'],$_POST['nombre'])) 
                     {
@@ -127,8 +134,18 @@ class Controller_Listas extends Controller_Autentificacion
 
                         return $json;
                     }
+                    
+            $nombreListaeditada=$_POST['titulo'];
             $lista = Model_listas::find($this->idNameList($nombreListaeditada));
             //la lista solo puede ser editada por su usuario o el admin
+            if(empty($lista))
+                    {
+                        $response = $this->response(array(
+                            'code' => 400,
+                            'message' => ' lista no existe',
+                        ));
+                        return $response;
+                    }
             if($this->userID()==$lista->id_usuario||$this->userIsAdmin())
             {
                 if ($lista->editable==1) 
